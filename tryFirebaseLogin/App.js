@@ -2,31 +2,67 @@ import React from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import * as firebase from 'firebase';
 import {Input} from './components/input';
-import {Button} from './components/Button';
+import {Button, SecButton} from './components/Button';
+
+//initialize Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyCMM5uK9qKbvplF-6JMWqOzi866YalrmYY",
+    authDomain: "first-project-a936d.firebaseapp.com",
+    databaseURL: "https://first-project-a936d.firebaseio.com",
+    projectId: "first-project-a936d",
+    storageBucket: "first-project-a936d.appspot.com",
+    messagingSenderId: "414258592837"
+};
+
+firebase.initializeApp(firebaseConfig);
 
 export default class App extends React.Component {
 
-  state = {
-    email:'',
-    password:'',
-    authenticating: false,
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      email:'',
+      password:'',
+      authenticating: false,
+    }
   }
 
-  componentWillMount() {
-    const firebaseConfig = {
-      apikey:'AIzaSyCMM5uK9qKbvplF-6JMWqOzi866YalrmYY',
-      authDomain:'first-project-a936d.firebaseapp.com',
-    }
+  signUpUser = (email, password) => {
+
+      try{
+        if (this.state.password.length < 6) {
+          alert("Please enter at least 6 characters")
+          return;
+        }
+
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+      }
+      catch(error){
+        console.log(error.toString())
+      }
+  }
+  
+  loginUser = (email, password) => {
+      try{
+        firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
+            console.log (user)
+          });
+          this.setState({
+            authenticating:true,
+          })
+        }
+      catch(error){
+        console.log(error.toString())
+      }
+  }
 
   
-    firebase.initializeApp(firebaseConfig)
-  }
-
-  onPressSignIn(){
-    this.setState({
-      authenticating:true,
-    })
-  }
+  // onPressSignIn(){
+  //   this.setState({
+  //     authenticating:true,
+  //   })
+  // }
 
 
 
@@ -55,7 +91,12 @@ export default class App extends React.Component {
             value={this.state.passwordl}
           />
 
-          <Button onPress={() => this.onPressSignIn()}>Log In</Button>
+          <Button onPress={() =>this.loginUser(this.state.email,this.state.password)}>Log In</Button>
+          {/* <Button onPress={() => this.onPressSignIn()}>Log In</Button> */}
+
+
+          <SecButton onPress={() => this.signUpUser(this.state.email,this.state.password)}>Sign Up</SecButton>
+          {/* <Button onPress={() => this.onPressSignIn()}>Log In</Button> */}
 
         </View>
       )

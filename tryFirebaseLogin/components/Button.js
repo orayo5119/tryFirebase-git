@@ -11,12 +11,29 @@ const Button = ({ onPress, children }) => {
     )
 }
 
+const SecButton = ({ onPress, children }) => {
+    return (
+        <TouchableOpacity onPress={onPress} style={styles.button2}>
+            <Text style={styles.text}>{ children }</Text>
+        </TouchableOpacity>
+    )
+}
+
 const styles = StyleSheet.create({
     button: {
         marginTop:50,
         padding: 20,
         width:'100%',
         backgroundColor:"#00aeef",
+        borderRadius: 4,
+        alignItems: 'center',
+    },
+
+    button2: {
+        marginTop:50,
+        padding: 20,
+        width:'100%',
+        backgroundColor:"#ffad60",
         borderRadius: 4,
         alignItems: 'center',
     },
@@ -28,4 +45,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export { Button };
+export { Button, SecButton };
