@@ -22,26 +22,26 @@ const SecButton = ({ onPress, children }) => {
 const styles = StyleSheet.create({
     button: {
         marginTop:50,
-        padding: 20,
+        padding: 15,
         width:'100%',
         backgroundColor:"#00aeef",
-        borderRadius: 4,
+        borderRadius: 6,
         alignItems: 'center',
     },
 
     button2: {
-        marginTop:50,
-        padding: 20,
+        marginTop:30,
+        padding: 15,
         width:'100%',
         backgroundColor:"#ffad60",
-        borderRadius: 4,
+        borderRadius: 6,
         alignItems: 'center',
     },
 
     text: {
         color: 'white',
         fontWeight:"700",
-        fontSize:18,
+        fontSize:22,
     }
 });
 

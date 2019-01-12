@@ -6,6 +6,7 @@ const Input = ({label, value, onChangeText, placeholder, secureTextEntry}) => {
 		<View style={styles.container}>
 			<Text style={styles.label}>{label}</Text>
 			<TextInput
+                style={styles.input}
 				value={value}
 				autoCorrect={false}
 				onChangeText={onChangeText}
@@ -25,18 +26,17 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
 	},
 	label: {
-		//padding: 5,
-		paddingBottom: 0,
+		paddingBottom: 5,
 		color: '#333',
-		fontSize: 17,
+		fontSize: 22,
 		fontWeight: '700',
 		width: '100%'
 	},
 	input: {
-		paddingHorizontal: 5,
+		//paddingHorizontal: 5,
 		paddingBottom: 5,
 		color: '#333',
-		fontSize: 18,
+		fontSize: 20,
 		fontWeight: '700',
 		width: '100%'
 	}

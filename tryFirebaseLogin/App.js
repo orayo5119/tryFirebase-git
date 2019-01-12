@@ -28,6 +28,14 @@ export default class App extends React.Component {
     }
   }
 
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user != null) {
+        console.log(user)
+      }
+    })
+  };
+
   signUpUser = (email, password) => {
 
       try{
@@ -57,15 +65,19 @@ export default class App extends React.Component {
       }
   }
 
+async loginWithFacebook(){
+  const {type,token} = await Expo.Facebook.logInWithReadPermissionsAsync
+  ('379839499457170', { permissions: ['public_profile']})
+
+  if(type == 'success') {
+    const credential = firebase.auth.FacebookAuthProvider.credential(token)
+
+    firebase.auth().signInAndRetrieveDataWithCredential(credential).catch((error) =>{
+      console.log(error)
+    })
+  }
+}
   
-  // onPressSignIn(){
-  //   this.setState({
-  //     authenticating:true,
-  //   })
-  // }
-
-
-
   //press button and run ActivityIndicator
     renderCurrentState() {
       if (this.state.authenticating) {
@@ -96,7 +108,9 @@ export default class App extends React.Component {
 
 
           <SecButton onPress={() => this.signUpUser(this.state.email,this.state.password)}>Sign Up</SecButton>
-          {/* <Button onPress={() => this.onPressSignIn()}>Log In</Button> */}
+
+          <Button onPress={() => this.loginWithFacebook()}>Login with Facebook</Button>
+      
 
         </View>
       )
@@ -114,7 +128,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
+    // paddingTop: 20,
     paddingHorizontal:20,
     alignItems:"center",
     justifyContent:"center",
